@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DC329E67291FBBF100C4AEC6 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = DC329E66291FBBF100C4AEC6 /* Alamofire */; };
+		DC329E6A29221FFA00C4AEC6 /* UIViewController-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC329E6929221FFA00C4AEC6 /* UIViewController-Extension.swift */; };
 		DCA1E57C291B912E008D608D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA1E57B291B912E008D608D /* AppDelegate.swift */; };
 		DCA1E57E291B912E008D608D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA1E57D291B912E008D608D /* SceneDelegate.swift */; };
 		DCA1E580291B912E008D608D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA1E57F291B912E008D608D /* ViewController.swift */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DC329E6929221FFA00C4AEC6 /* UIViewController-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController-Extension.swift"; sourceTree = "<group>"; };
 		DCA1E578291B912E008D608D /* spotifyCln.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = spotifyCln.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCA1E57B291B912E008D608D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DCA1E57D291B912E008D608D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +51,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DC329E6829221F0800C4AEC6 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				DC329E6929221FFA00C4AEC6 /* UIViewController-Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		DCA1E56F291B912E008D608D = {
 			isa = PBXGroup;
 			children = (
@@ -68,6 +78,7 @@
 		DCA1E57A291B912E008D608D /* spotifyCln */ = {
 			isa = PBXGroup;
 			children = (
+				DC329E6829221F0800C4AEC6 /* Extensions */,
 				DCA1E58F291B9235008D608D /* Scene */,
 				DCA1E57B291B912E008D608D /* AppDelegate.swift */,
 				DCA1E57D291B912E008D608D /* SceneDelegate.swift */,
@@ -204,6 +215,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DCA1E5A0291B9C25008D608D /* MyFollowersCollectionViewCell.swift in Sources */,
+				DC329E6A29221FFA00C4AEC6 /* UIViewController-Extension.swift in Sources */,
 				DCA1E59B291B96D9008D608D /* FollowingCollectionViewCell.swift in Sources */,
 				DCA1E580291B912E008D608D /* ViewController.swift in Sources */,
 				DCA1E57C291B912E008D608D /* AppDelegate.swift in Sources */,

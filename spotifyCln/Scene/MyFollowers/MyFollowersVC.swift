@@ -51,8 +51,8 @@ class MyFollowersVC: UIViewController {
         setLayout()
         configureItems()
         setupCollectionView()
-        
         configureSideMenu()
+        
     }
     fileprivate func configureSideMenu(){
         tableView.delegate = self
@@ -74,14 +74,14 @@ class MyFollowersVC: UIViewController {
         myFollowersCollectionView?.delegate = self
         myFollowersCollectionView?.dataSource = self
     }
-    private func setLayout(){
+    fileprivate func setLayout(){
         self.view.backgroundColor = UIColor(named: "spotifyBlackColor")
         self.navigationItem.title = "My Followers"
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.rgb(red: 30.0, green: 215.0, blue: 96.0)]
     }
     
-    private func configureItems(){
+    fileprivate func configureItems(){
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "line.3.horizontal"), style: .done, target: self, action: #selector(didTapSideMenuButton))
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.rgb(red: 30.0, green: 215.0, blue: 96.0)
     }
