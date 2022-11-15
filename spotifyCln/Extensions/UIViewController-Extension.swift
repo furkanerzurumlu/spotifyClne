@@ -9,7 +9,8 @@ import UIKit
 
 public enum StoryboardNames: String {
     case main = "Main"
-    
+    case profile = "MyProfile"
+    case search = "Search"
 }
 
 protocol StoryboardSettings {

@@ -7,12 +7,15 @@
 
 import UIKit
 
+
 class ViewController: UIViewController {
+    
     // MARK: Variables
     private var isEnebleSideBarView: Bool = false
     private var sideBarView: UIView!
     var cellImageView: UIImageView!
     var cellLabel: UILabel!
+    
     
     @IBOutlet weak var followingCollectionView: UICollectionView!
     private let tableview: UITableView = {
@@ -20,27 +23,28 @@ class ViewController: UIViewController {
         table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         return table
     }()
+    
     // MARK: Menu Variables
     enum MenuOptions: String, CaseIterable{
         case home = "Home"
-        case info = "Info"
-        case appRaiting = "App Raiting"
-        case shareApp = "Share App"
-        case settings = "Settings"
+        case profile = "My Profile"
+        //case appRaiting = " "
+        //case shareApp = " "
+        //case settings = " "
         
         
         var imageName: String{
             switch self{
             case .home:
-                return "house"
-            case .info:
+                return "house.fill"
+            case .profile:
                 return "airplane"
-            case .appRaiting:
-                return "star"
-            case .shareApp:
-                return "message"
-            case .settings:
-                return "gear"
+            //case .appRaiting:
+                //return "star"
+            //case .shareApp:
+                //return "message"
+            //case .settings:
+                //return "gear"
             }
         }
     }
@@ -76,7 +80,7 @@ class ViewController: UIViewController {
     // MARK: CollectionView Set
     fileprivate func setupCollectionView(){
         followingCollectionView?.register(FollowingCollectionViewCell.nibName, forCellWithReuseIdentifier: FollowingCollectionViewCell.identifer)
-       
+        
         followingCollectionView?.delegate = self
         followingCollectionView?.dataSource = self
         
@@ -84,15 +88,15 @@ class ViewController: UIViewController {
     // MARK: BarButtonItem
     private func configureItems(){
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "line.3.horizontal"), style: .done, target: self, action: #selector(didTapSideMenuButton))
-       
+        
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor(named: "spotifyGreenColor")
     }
     @objc func didTapSideMenuButton(){
-        print("Menu clicked")
+//        print("Menu clicked")
         
         if isEnebleSideBarView{
             
-            UIView.animate(withDuration: 1.5) {
+            UIView.animate(withDuration: 1.5,delay: 0,usingSpringWithDamping: 0.8,initialSpringVelocity: 0,options: .curveEaseInOut) {
                 self.sideBarView.frame = CGRect(x: 0, y: 0, width: 0, height: self.view.bounds.height)
                 self.tableview.frame = CGRect(x: 0, y: 0, width: 0, height: self.view.bounds.height)
                 self.navigationItem.leftBarButtonItem?.tintColor = UIColor(named: "spotifyGreenColor")
@@ -101,7 +105,7 @@ class ViewController: UIViewController {
             tableview.isHidden = true
         }else{
             
-            UIView.animate(withDuration: 1.5){
+            UIView.animate(withDuration: 1.5,delay: 0,usingSpringWithDamping: 0.8,initialSpringVelocity: 0,options: .curveEaseInOut){
                 self.sideBarView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width/2, height: self.view.bounds.height)
                 self.tableview.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width/2, height: self.view.bounds.height)
                 self.navigationItem.leftBarButtonItem?.tintColor = UIColor(named: "spotifyBlackColor")
@@ -125,16 +129,18 @@ class ViewController: UIViewController {
         if let tabBarItem1 = self.tabBarController?.tabBar.items?[0]{
             tabBarItem1.title = "Following"
             tabBarItem1.image = UIImage(named: "followers")
+            
         }
         
         if let tabBarItem3 = self.tabBarController?.tabBar.items?[1]{
             tabBarItem3.title = "My Followers"
             tabBarItem3.image = UIImage(named: "following")
+            
         }
     }
-
+    
 }
-    // MARK: CollectionView Extension
+// MARK: CollectionView Extension
 extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 3
@@ -156,10 +162,10 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
     }
     
 }
-    // MARK: TableView Extension
+// MARK: TableView Extension
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return MenuOptions.allCases.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -167,12 +173,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         cell.textLabel?.text = MenuOptions.allCases[indexPath.row].rawValue
         cell.imageView?.image = UIImage(systemName: MenuOptions.allCases[indexPath.row].imageName)
         cell.imageView?.tintColor = UIColor(named: "spotifyBlackColor")
-        
         cell.textLabel?.textColor = UIColor(named: "spotifyBlackColor")
         cell.backgroundColor = UIColor(named: "spotifyGreenColor")
         cell.contentView.backgroundColor = UIColor(named: "spotifyGreenColor")
-
-       
+        
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -180,8 +184,16 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let item = MenuOptions.allCases[indexPath.row]
-        
+        switch indexPath.row{
+        case 0:
+            Router.shared.showMyProfileVC(navigaitonController: self.navigationController)
+            didTapSideMenuButton()
+        case 1:
+            Router.shared.showSerachVC(navigationController: self.navigationController)
+            didTapSideMenuButton()
+        default:
+            break
+        }
     }
 }
 

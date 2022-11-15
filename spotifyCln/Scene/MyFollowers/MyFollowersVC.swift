@@ -19,23 +19,23 @@ class MyFollowersVC: UIViewController {
     
     enum MenuOptions: String, CaseIterable{
         case home = "Home"
-        case info = "info"
-        case appRaiting = "App Raiting"
-        case shareApp = "Share App"
-        case settings = "Settings"
+        case profile = "My Profile"
+//        case appRaiting = " "
+//        case shareApp = " "
+//        case settings = " "
         
         var imageName: String{
             switch self{
             case .home:
-                return "house"
-            case .info:
+                return "house.fill"
+            case .profile:
                 return "airplane"
-            case .appRaiting:
-                return "star"
-            case .shareApp:
-                return "message"
-            case .settings:
-                return "gear"
+//            case .appRaiting:
+//                return "star"
+//            case .shareApp:
+//                return "message"
+//            case .settings:
+//                return "gear"
             }
         }
     }
@@ -58,6 +58,7 @@ class MyFollowersVC: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
+        //tableView.separatorStyle = .none
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
         tableView.backgroundColor = UIColor(named: "spotifyGreenColor")
@@ -86,10 +87,10 @@ class MyFollowersVC: UIViewController {
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.rgb(red: 30.0, green: 215.0, blue: 96.0)
     }
     @objc func didTapSideMenuButton(){
-        print("my following tapped")
+//        print("my following tapped")
         if isEnebleSideBarView{
             
-            UIView.animate(withDuration: 1.5){
+            UIView.animate(withDuration: 1.5,delay: 0,usingSpringWithDamping: 0.8,initialSpringVelocity: 0,options: .curveEaseInOut){
                 self.sideBarView.frame = CGRect(x: 0, y: 0, width: 0, height: self.view.bounds.height)
                 self.tableView.frame = CGRect(x: 0, y: 0, width: 0, height: self.view.bounds.height)
                 self.navigationItem.leftBarButtonItem?.tintColor = UIColor(named: "spotifyGreenColor")
@@ -97,7 +98,7 @@ class MyFollowersVC: UIViewController {
             isEnebleSideBarView = false
             tableView.isHidden = true
         }else{
-            UIView.animate(withDuration: 1.5){
+            UIView.animate(withDuration: 1.5,delay: 0,usingSpringWithDamping: 0.8,initialSpringVelocity: 0,options: .curveEaseInOut){
                 self.sideBarView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width/2, height: self.view.bounds.height)
                 self.tableView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width/2, height: self.view.bounds.height)
                 self.navigationItem.leftBarButtonItem?.tintColor = UIColor(named: "spotifyBlackColor")
@@ -115,7 +116,6 @@ extension MyFollowersVC : UICollectionViewDelegate, UICollectionViewDataSource, 
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = myFollowersCollectionView.dequeueReusableCell(withReuseIdentifier: MyFollowersCollectionViewCell.identifier, for: indexPath) as! MyFollowersCollectionViewCell
-        
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -124,14 +124,13 @@ extension MyFollowersVC : UICollectionViewDelegate, UICollectionViewDataSource, 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let layout = collectionViewLayout as! UICollectionViewFlowLayout
         let withPerItem = myFollowersCollectionView.frame.width - layout.minimumInteritemSpacing
-        
         return CGSize(width: withPerItem, height: 120)
     }
 }
 
 extension MyFollowersVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return MenuOptions.allCases.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
@@ -148,7 +147,17 @@ extension MyFollowersVC: UITableViewDelegate, UITableViewDataSource {
         return 60
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        let item = MenuOptions.allCases[indexPath.row]
+        switch indexPath.row {
+        case 0:
+            Router.shared.showMyProfileVC(navigaitonController: self.navigationController)
+            didTapSideMenuButton()
+        case 1:
+            Router.shared.showSerachVC(navigationController: self.navigationController)
+            didTapSideMenuButton()
+        default:
+            break
+        }
+        
+       
     }
 }
