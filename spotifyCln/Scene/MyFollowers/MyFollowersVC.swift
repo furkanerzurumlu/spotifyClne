@@ -97,6 +97,8 @@ class MyFollowersVC: UIViewController {
             }
             isEnebleSideBarView = false
             tableView.isHidden = true
+            self.tabBarController?.tabBar.items?[1].isEnabled = true
+            self.tabBarController?.tabBar.items?[0].isEnabled = true
         }else{
             UIView.animate(withDuration: 1.5,delay: 0,usingSpringWithDamping: 0.8,initialSpringVelocity: 0,options: .curveEaseInOut){
                 self.sideBarView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width/2, height: self.view.bounds.height)
@@ -105,6 +107,8 @@ class MyFollowersVC: UIViewController {
             }
             isEnebleSideBarView = true
             tableView.isHidden = false
+            self.tabBarController?.tabBar.items?[1].isEnabled = false
+            self.tabBarController?.tabBar.items?[0].isEnabled = false
         }
     }
 }

@@ -39,11 +39,11 @@ class ViewController: UIViewController {
                 return "house.fill"
             case .profile:
                 return "airplane"
-            //case .appRaiting:
+                //case .appRaiting:
                 //return "star"
-            //case .shareApp:
+                //case .shareApp:
                 //return "message"
-            //case .settings:
+                //case .settings:
                 //return "gear"
             }
         }
@@ -59,6 +59,7 @@ class ViewController: UIViewController {
         
         configureSideMenu()
         
+       
         //navigationItem.leftBarButtonItem?.customView?.layer.borderColor = UIColor(named: "spotifyGreenColor")?.cgColor
     }
     // MARK: - Configure Side Menu
@@ -92,18 +93,25 @@ class ViewController: UIViewController {
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor(named: "spotifyGreenColor")
     }
     @objc func didTapSideMenuButton(){
-//        print("Menu clicked")
+        //        print("Menu clicked")
         
-        if isEnebleSideBarView{
+        
+        if isEnebleSideBarView{ //Close
             
             UIView.animate(withDuration: 1.5,delay: 0,usingSpringWithDamping: 0.8,initialSpringVelocity: 0,options: .curveEaseInOut) {
                 self.sideBarView.frame = CGRect(x: 0, y: 0, width: 0, height: self.view.bounds.height)
                 self.tableview.frame = CGRect(x: 0, y: 0, width: 0, height: self.view.bounds.height)
                 self.navigationItem.leftBarButtonItem?.tintColor = UIColor(named: "spotifyGreenColor")
+                
             }
             isEnebleSideBarView = false
             tableview.isHidden = true
-        }else{
+            self.tabBarController?.tabBar.items?[1].isEnabled = true
+            self.tabBarController?.tabBar.items?[0].isEnabled = true
+            
+            //self.tabBarController?.tabBar.isHidden = false
+            
+        }else{ //Open
             
             UIView.animate(withDuration: 1.5,delay: 0,usingSpringWithDamping: 0.8,initialSpringVelocity: 0,options: .curveEaseInOut){
                 self.sideBarView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width/2, height: self.view.bounds.height)
@@ -113,6 +121,13 @@ class ViewController: UIViewController {
             }
             isEnebleSideBarView = true
             tableview.isHidden = false
+            
+            self.tabBarController?.tabBar.items?[1].isEnabled = false
+            self.tabBarController?.tabBar.items?[0].isEnabled = false
+            
+//            self.tabBarController?.viewControllers?.remove(at: 1)
+            //self.tabBarController?.tabBar.isHidden = true
+            
         }
     }
     // MARK: LayoutSet
@@ -125,17 +140,17 @@ class ViewController: UIViewController {
     }
     // MARK: TabBar Set
     private func setTabBar(){
-        
+
         if let tabBarItem1 = self.tabBarController?.tabBar.items?[0]{
             tabBarItem1.title = "Following"
             tabBarItem1.image = UIImage(named: "followers")
-            
+
         }
-        
-        if let tabBarItem3 = self.tabBarController?.tabBar.items?[1]{
-            tabBarItem3.title = "My Followers"
-            tabBarItem3.image = UIImage(named: "following")
-            
+
+        if let tabBarItem2 = self.tabBarController?.tabBar.items?[1]{
+            tabBarItem2.title = "My Followers"
+            tabBarItem2.image = UIImage(named: "following")
+
         }
     }
     
@@ -153,12 +168,6 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 1.0, left: 2.0, bottom: 1.0, right: 2.0)
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let layout = collectionViewLayout as! UICollectionViewFlowLayout
-        let withPerItem = followingCollectionView.frame.width - layout.minimumInteritemSpacing
-        
-        return CGSize(width: withPerItem, height: 120)
     }
     
 }
@@ -196,8 +205,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
 }
-
-
 
 extension UIColor {
     static func rgb(red: CGFloat, green: CGFloat, blue: CGFloat) -> UIColor {
